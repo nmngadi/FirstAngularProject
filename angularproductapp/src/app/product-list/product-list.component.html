@@ -1,18 +1,28 @@
 <h2>Products</h2>
 
-<div *ngFor="let product of products">
+<div *ngFor="let product of products; index as productId">
+  <!-- ngFor is the Angular implementation of a standard for loop -->
   <h3>
-    <a [title]="product.name + ' details'">
+    <a
+      [title]="product.name + ' details'"
+      [routerLink]="['/products', productId]"
+    >
+      <!-- [] is called property binding. In HTML title would be set just as title="text goes here" -->
       {{ product.name }}
-      <h4>{{ product.price | currency }}</h4>
+      <!-- {{ }} is called interpolation syntax, which renders a property's value as text -->
     </a>
   </h3>
 
-  <p *ngIf="product.description">Description: {{ product.description }}</p>
+  <p *ngIf="product.description">
+    <!-- ngIf is the Angular implementation of a standard if statement -->
+    Description: {{ product.description }}
+  </p>
 
   <button (click)="share()">
+    <!-- () is used for event binding. share() is from the product-list.component.ts -->
     Share
   </button>
+
   <app-product-alerts [product]="product" (notify)="onNotify()">
   </app-product-alerts>
 </div>
